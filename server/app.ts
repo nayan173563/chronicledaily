@@ -160,7 +160,7 @@ function renderSocialHtml(post: any, settings: any, _reqUrl: string, baseUrl: st
   else if (image.includes('.gif')) imageType = 'image/gif';
 
   return `<!doctype html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -169,6 +169,7 @@ function renderSocialHtml(post: any, settings: any, _reqUrl: string, baseUrl: st
     <link rel="canonical" href="${canonicalUrl}" />
 
     <!-- Open Graph (Facebook, WhatsApp, Messenger, Telegram, LinkedIn, Discord) -->
+    <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="${escapeHtml(siteName)}" />
     <meta property="og:title" content="${escapeHtml(post.title)}" />
@@ -218,7 +219,6 @@ function renderSocialHtml(post: any, settings: any, _reqUrl: string, baseUrl: st
       }
     }
     </script>
-    <meta http-equiv="refresh" content="0; url=/post/${post.slug}" />
   </head>
   <body style="font-family: system-ui, sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
     <h1>${escapeHtml(post.title)}</h1>
@@ -226,7 +226,6 @@ function renderSocialHtml(post: any, settings: any, _reqUrl: string, baseUrl: st
     <img src="${image}" alt="${escapeHtml(post.title)}" style="max-width: 100%; border-radius: 8px; margin: 1rem 0;" />
     <p>${escapeHtml(desc)}</p>
     <p><a href="/post/${post.slug}">Read full article at ${escapeHtml(siteName)} &rarr;</a></p>
-    <script>window.location.href = "/post/${post.slug}";</script>
   </body>
 </html>`;
 }
@@ -248,6 +247,7 @@ function renderHomepageSocialHtml(settings: any, baseUrl: string) {
     <link rel="canonical" href="${canonicalUrl}" />
 
     <!-- Open Graph -->
+    <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${escapeHtml(siteName)}" />
     <meta property="og:title" content="${escapeHtml(title)}" />
@@ -268,14 +268,12 @@ function renderHomepageSocialHtml(settings: any, baseUrl: string) {
     <meta name="twitter:description" content="${escapeHtml(desc)}" />
     <meta name="twitter:image" content="${image}" />
     <meta name="twitter:image:alt" content="${escapeHtml(siteName)}" />
-    <meta http-equiv="refresh" content="0; url=/" />
   </head>
   <body style="font-family: system-ui, sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
     <h1>${escapeHtml(title)}</h1>
     <p>${escapeHtml(desc)}</p>
     <img src="${image}" alt="${escapeHtml(siteName)}" style="max-width: 100%; border-radius: 8px; margin: 1rem 0;" />
     <p><a href="/">Enter ${escapeHtml(siteName)} &rarr;</a></p>
-    <script>window.location.href = "/";</script>
   </body>
 </html>`;
 }
@@ -326,6 +324,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   if (explicitShort) {
     const cleanShortId = explicitShort.split('?')[0].split('/')[0];
     const post = db.getPostByShortId(cleanShortId) || db.getPostById(cleanShortId);
+    if (!isCrawler) {
+      if (post) return res.redirect(302, '/post/' + post.slug);
+      return res.redirect(302, '/');
+    }
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400');
     if (post) {
@@ -378,6 +380,23 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Normalize API route URLs for Vercel and serverless proxy rewrites
 app.use((req: Request, _res: Response, next: NextFunction) => {
+  const matchedPath =
+    (req.headers['x-matched-path'] as string) ||
+    (req.headers['x-invoke-path'] as string) ||
+    (req.headers['x-forwarded-uri'] as string) ||
+    (req.headers['x-original-url'] as string);
+
+  if (matchedPath && (req.url === '/api' || req.url === '/api/' || req.url.startsWith('/api?'))) {
+    const queryIdx = req.url.indexOf('?');
+    const query = queryIdx !== -1 ? req.url.slice(queryIdx) : '';
+    req.url = matchedPath + (query && !matchedPath.includes('?') ? query : '');
+  } else if (req.query && req.query.__path) {
+    const subpath = Array.isArray(req.query.__path) ? req.query.__path.join('/') : req.query.__path;
+    const queryIdx = req.url.indexOf('?');
+    const query = queryIdx !== -1 ? req.url.slice(queryIdx) : '';
+    req.url = '/api/' + String(subpath).replace(/^\/+/, '') + query;
+  }
+
   if (req.url && !req.url.startsWith('/api') && (
     req.url.startsWith('/auth') || 
     req.url.startsWith('/posts') || 

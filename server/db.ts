@@ -1,8 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import seedDbData from '../data/news_db.json';
-let bundledDbData: any = seedDbData;
+import * as nodeModule from 'module';
+const nodeRequire = typeof require !== 'undefined' ? require : (nodeModule.createRequire || (nodeModule.default && nodeModule.default.createRequire))(import.meta.url);
+let bundledDbData: any = null;
+try {
+  bundledDbData = nodeRequire('../data/news_db.json');
+} catch (e) {
+  bundledDbData = null;
+}
 import { Post, Category, Ad, WebsiteSettings, MediaItem, Comment, DeploymentSettings, SmtpSettings, SmtpSettingsView } from '../src/types';
 import { encryptCredentials, decryptCredentials, maskKey } from './crypto';
 
