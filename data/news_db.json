@@ -1,0 +1,678 @@
+{
+  "admin": {
+    "id": "admin-master-1",
+    "username": "admin",
+    "password_hash": "68b7c93464eb7eb8b3eef3a043db95a1ff72ac2d961d4916b864c1ee11f76e4e",
+    "email": "editor@chronicle-daily.org",
+    "name": "Chief Editor",
+    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80",
+    "phone": "+8801700000000"
+  },
+  "settings": {
+    "website_name": "The Daily Chronicle",
+    "website_tagline": "Independent Journal of Record & Global Media Dispatch",
+    "logo_url": "",
+    "favicon_url": "",
+    "primary_color": "#0f172a",
+    "secondary_color": "#475569",
+    "accent_color": "#b91c1c",
+    "header_design": "editorial",
+    "footer_design": "columns",
+    "font_family": "playfair",
+    "social_links": {
+      "facebook": "https://www.facebook.com",
+      "twitter": "https://twitter.com",
+      "instagram": "https://instagram.com",
+      "youtube": "https://youtube.com",
+      "telegram": "https://telegram.org",
+      "whatsapp": "https://whatsapp.com"
+    },
+    "contact_info": {
+      "email": "contact@chronicle-daily.org",
+      "phone": "+1 (555) 234-8900",
+      "address": "450 Lexington Avenue, 18th Floor, New York, NY 10017"
+    },
+    "copyright_text": "© 2026 The Daily Chronicle Publishing Group Inc. All rights reserved.",
+    "comments_enabled": true,
+    "skip_ad_enabled": true,
+    "skip_ad_opacity": 0.88,
+    "skip_ad_link": "https://www.profitableratecpmnetwork.com/u7c83wtb?key=8ad40353f84fe993feb17e6ca4a03326",
+    "meta_keywords": "breaking news, world politics, international diplomacy, technology news, investigative reporting, entertainment dispatch, box office cinema",
+    "meta_description": "The Daily Chronicle provides verified investigative journalism, high-resolution media reports, and breaking world dispatches."
+  },
+  "categories": [
+    {
+      "id": "cat-1",
+      "name": "National",
+      "slug": "national",
+      "description": "Domestic governance, policy, civic updates and national developments",
+      "color": "#1E3A8A"
+    },
+    {
+      "id": "cat-2",
+      "name": "International",
+      "slug": "international",
+      "description": "Global geopolitics, international relations and world affairs",
+      "color": "#0F766E"
+    },
+    {
+      "id": "cat-3",
+      "name": "Politics",
+      "slug": "politics",
+      "description": "Legislative hearings, elections, political analysis and debates",
+      "color": "#B91C1C"
+    },
+    {
+      "id": "cat-4",
+      "name": "Sports",
+      "slug": "sports",
+      "description": "Championship highlights, athletic analysis, and global tournaments",
+      "color": "#C2410C"
+    },
+    {
+      "id": "cat-5",
+      "name": "Entertainment",
+      "slug": "entertainment",
+      "description": "Pop culture, red carpet premieres, and celebrity features",
+      "color": "#7E22CE"
+    },
+    {
+      "id": "cat-6",
+      "name": "Technology",
+      "slug": "technology",
+      "description": "Artificial intelligence, deep tech breakthroughs, and scientific compute",
+      "color": "#2563EB"
+    },
+    {
+      "id": "cat-7",
+      "name": "Funny",
+      "slug": "funny",
+      "description": "Hilarious viral clips, internet memes, and lighthearted satire",
+      "color": "#EAB308"
+    },
+    {
+      "id": "cat-8",
+      "name": "Drama",
+      "slug": "drama",
+      "description": "High-stakes serialized productions, theatrical recaps, and stories",
+      "color": "#BE185D"
+    }
+  ],
+  "posts": [
+    {
+      "title": "Jack Smith defends Trump probes in Senate hearing filled with GOP insults",
+      "slug": "jack-smith-defends-trump-probes-in-senate-hearing-filled-with-gop-insults",
+      "short_id": "tjjaan",
+      "description": "",
+      "content": "By Ryan J. Reilly and Justin Goldman\nWASHINGTON — Former special counsel Jack Smith told senators Tuesday that he would not be silenced “by continued threats of prosecution” over his handling of the investigation into Donald Trump.\n\nSmith appeared before the Senate Judiciary Committee amid the Justice Department’s push to target law enforcement officials involved with his investigation into Trump’s efforts to overturn his 2020 election loss in the lead-up to the Jan. 6 attack on the U.S. Capitol, as well as the probe into his handling of classified documents after he left office in January 2021.\n\nSmith, who brought two since-dismissed federal criminal cases against Trump, said in his opening statement that he stood by his decision to bring charges against Trump, which was the result of a deep investigation that uncovered substantive evidence.\n\n“The status, power, prominence or political affiliation of the subject of an investigation must play no role in the decision to investigate, prosecute or decline to prosecute,” he said.\n\n“Our investigation developed proof beyond a reasonable doubt that President Trump engaged in serious crimes against our nation,” he said. Trump has said he did nothing wrong.\n\nThe hearing quickly devolved into a battleground of insults.\n\nLouisiana Republican John Kennedy began his questioning by asking Smith: “What does the word arrogant mean?” And he ended his time by telling Smith: “You make me want to throw up in my mouth.”\n\n\nLater, Missouri Republican Eric Schmitt called Smith a “dirtbag.”\n\nThe epithet came after Schmitt tried to imply that the former special counsel had been in communication with Fani Willis, the district attorney of Fulton County who was at the time working on a state case against Trump. Schmitt tried to place Smith in Atlanta at a Hawks game. When Smith denied it, Schmitt suggested he’d committed perjury.\n\nBut Schmitt appeared to have confused his basketball teams: Smith had actually been in attendance at an Iowa Hawkeyes game, which was Caitlin Clark’s team at the time.\n\nSen. Amy Klobuchar, D-Minn., said Schmitt owed Smith an apology. He didn’t give it.\n\nCommittee Chairman Chuck Grassley, R-Iowa, has repeatedly criticized Smith. Grassley asserted that Smith misused his investigative powers and politically targeted Republicans. Smith, who as a career prosecutor went after Republicans and Democrats, has denied such allegations.\n\nGrassley said that Smith must answer for what the senator portrays as “rampant abuse of authority and political targeting” funded by American taxpayers. He said his goal is to expose the “weaponization” of the Justice Department for actions taken during the Biden administration.\n\n“Jack Smith’s corrupt operation undermined the rule of law and threatened our very political institutions,” he said Tuesday.",
+      "category_id": "cat-2",
+      "content_type": "news",
+      "media_source": "",
+      "media_type": "none",
+      "thumbnail_url": "https://res.cloudinary.com/dmq5lbyso/image/upload/v1790730364/chronicle_news/qkfr4ov9pfw7378y3hnm.png",
+      "author": "Chief Editor",
+      "status": "published",
+      "read_time": "4 min read",
+      "id": "post-munepe5r-sw4d",
+      "category_name": "International",
+      "views": 2,
+      "created_at": "2026-09-30T01:08:21.615Z",
+      "updated_at": "2026-09-30T01:08:21.615Z"
+    },
+    {
+      "id": "post-1",
+      "short_id": "n7k2m9",
+      "title": "Global Summit Reaches Historic Treaty on Autonomous Oceanic Carbon Sequestration",
+      "slug": "global-summit-oceanic-carbon-sequestration",
+      "description": "Ministers from 64 maritime nations convene in Geneva to ratify unified protocols governing deep-sea mineral rights and algorithmic oceanic bioreactors.",
+      "content": "GENEVA — In what international observers are characterizing as the most consequential environmental treaty of the decade, delegates representing 64 maritime powers finalized the Geneva Accords on Automated Oceanic Remediation early Saturday morning.\n\nThe treaty establishes strict jurisdictional oversight regarding autonomous robotic fleets deploying mineral-based alkalinity enhancement across international waters. The framework sets binding limits on high-seas micro-dosing and requires real-time cryptographic telemetry to be transmitted publicly to the International Maritime Organization.\n\n\"We have crossed the threshold from speculative geo-engineering to regulated planetary stewardship,\" stated Elena Vance, lead negotiator for the Mediterranean Environmental Council. \"The technology is no longer in laboratory limbo; it is currently operating in the South Pacific, and today's framework guarantees accountability.\"\n\nKey points of the consensus include:\n- Mandatory open-source data telemetry for all robotic surface buoys.\n- A moratorium on unverified ocean-bottom iron fertilizations until 2030.\n- A multi-billion-dollar restitution reserve sponsored by high-emission nations to support island territories.\n\nThe agreement comes following an eighteen-month scientific review confirming that controlled calcification can accelerate ocean carbon absorption without disrupting pelagic food webs. Commercial deployments are scheduled to transition under the newly formed council starting next quarter.",
+      "category_id": "cat-2",
+      "category_name": "International",
+      "content_type": "news",
+      "media_source": "https://www.youtube.com/watch?v=LXb3EKWsInQ",
+      "media_type": "youtube",
+      "thumbnail_url": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 14280,
+      "author": "Julian Sterling",
+      "created_at": "2026-09-27T04:25:03.589Z",
+      "updated_at": "2026-09-27T04:25:03.589Z",
+      "read_time": "5 min read"
+    },
+    {
+      "id": "post-2",
+      "short_id": "t8x4w1",
+      "title": "Silicon Architecture Revolution: Next-Generation Photonic Neural Compute Achieves 100x Efficiency",
+      "slug": "next-gen-photonic-neural-compute-breakthrough",
+      "description": "A coalition of academic laboratories and semiconductor fabrication consortiums confirms first commercial wafer utilizing coherent laser interconnects.",
+      "content": "SANTA CLARA — Optical computing researchers have cleared what many believed was an insurmountable engineering hurdle: maintaining phase coherence across 4,096 optical tensor cores on standard commercial silicon-on-insulator wafers.\n\nThe newly demonstrated processor replaces metal copper interconnects with laser waveguides, reducing thermal throttling and power consumption by roughly two orders of magnitude compared to current leading accelerator architectures.\n\nDuring benchmark testing supervised by the National Supercomputing Facility, the 16nm hybrid photonic unit completed large language training operations at 180 teraflops per watt, effectively solving the grid-level power constraints that have plagued modern hyperscale datacenter expansion.\n\nIndustry analysts predict the architecture could reach pilot data centers as early as late 2027, drastically altering the capital expenditure landscape for cloud infrastructure providers globally.",
+      "category_id": "cat-6",
+      "category_name": "Technology",
+      "content_type": "news",
+      "media_source": "https://www.youtube.com/watch?v=0hbb33w4mXk",
+      "media_type": "youtube",
+      "thumbnail_url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 9410,
+      "author": "Dr. Sarah Lin",
+      "created_at": "2026-09-27T00:25:03.589Z",
+      "updated_at": "2026-09-27T00:25:03.589Z",
+      "read_time": "4 min read"
+    },
+    {
+      "id": "post-3",
+      "short_id": "p3m9z8",
+      "title": "Bipartisan Senate Panel Clears Comprehensive Federal Privacy & Digital Rights Act",
+      "slug": "senate-panel-clears-privacy-digital-rights-act",
+      "description": "The landmark legislation establishes strict algorithmic disclosure requirements, outlaws unauthorized biometric surveillance, and codifies consumer data deletion rights.",
+      "content": "WASHINGTON — Following months of closed-door negotiations between committee leaders, the Senate Judiciary Committee voted 19-3 on Thursday to send the American Digital Integrity and Privacy Act to the full Senate floor.\n\nThe bill represents the most significant overhaul of federal privacy guidelines in thirty years. It pre-empts a patchwork of conflicting state statutes while establishing rigorous standards modeled in part after European directives, with specific protections for algorithmic transparency and minors.\n\nChief among the bill's provisions is a statutory requirement that any commercial model making consequential legal, financial, or employment evaluations must provide human-interpretable audit logs upon formal inquiry.\n\n\"The era of opaque commercial data scraping without explicit affirmative consent is closing,\" remarked Ranking Member Senator Marcus Hayes during the post-vote briefing. The floor vote is anticipated within the next fortnight.",
+      "category_id": "cat-3",
+      "category_name": "Politics",
+      "content_type": "news",
+      "media_source": "",
+      "media_type": "none",
+      "thumbnail_url": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 6520,
+      "author": "Caroline Vance",
+      "created_at": "2026-09-26T18:25:03.589Z",
+      "updated_at": "2026-09-26T18:25:03.589Z",
+      "read_time": "6 min read"
+    },
+    {
+      "id": "post-4",
+      "short_id": "s2k1v5",
+      "title": "World Athletics Championship: Underdog Relay Squad Breaks 16-Year Continental Record",
+      "slug": "underdog-relay-breaks-continental-record",
+      "description": "A masterclass in baton passing precision stuns the Olympic Stadium in Tokyo as the four-man contingent clocks 37.04 seconds in the final sprint.",
+      "content": "TOKYO — In an electrifying conclusion to the 4x100m relay finals, the four sprinters shattered decades of sports predictions by delivering flawless exchange zones and winning the gold medal with a record-setting split of 37.04 seconds.\n\nEntering the tournament seeded fifth, the team credited intensive biometric stride synchronization and aerodynamic wind-tunnel testing conducted over winter training camp for their explosive transitions.\n\n\"We knew we couldn't rely solely on straight-line foot speed against the favorites,\" team captain Ronald Chen explained while draped in his country's flag. \"Our entire advantage came from preserving velocity inside the 20-meter passing zone.\"\n\nThe silver medal went to the defending champions who finished merely 0.08 seconds behind in a photo finish that brought the 65,000 spectators to their feet.",
+      "category_id": "cat-4",
+      "category_name": "Sports",
+      "content_type": "news",
+      "media_source": "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
+      "media_type": "youtube",
+      "thumbnail_url": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 8190,
+      "author": "Marcus Brody",
+      "created_at": "2026-09-26T12:25:03.589Z",
+      "updated_at": "2026-09-26T12:25:03.589Z",
+      "read_time": "3 min read"
+    },
+    {
+      "id": "post-5",
+      "short_id": "e9j7q3",
+      "title": "Inside the Venice Biennale: A Monolithic Cinema Experience Filmed on 70mm Celluloid",
+      "slug": "venice-biennale-70mm-cinema-experience",
+      "description": "Director Clara Thorne unveils a three-hour sensory epic exploring forgotten arctic soundscapes and mechanical decay.",
+      "content": "VENICE — In the cavernous brick halls of the Arsenale, attendees at this year's International Exhibition were treated to the premier of *The Permafrost Echo*, an extraordinary cinematic installation captured entirely on rare 70mm Kodak stock.\n\nThe piece abandons traditional narrative dialogue in favor of hydrophone recordings taken beneath Greenland glaciers, juxtaposed against sweeping vistas of decommissioned radio telescope arrays.\n\nCritics have lauded the film's refusal to succumb to rapid algorithmic editing tropes, calling it \"a cathedral of light and reverberation that demands undivided physical attention.\" The exhibition runs through November before traveling to Tokyo and London.",
+      "category_id": "cat-9",
+      "category_name": "Movies",
+      "content_type": "movies",
+      "media_source": "https://vimeo.com/76979871",
+      "media_type": "vimeo",
+      "thumbnail_url": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 4830,
+      "author": "Helena Berg",
+      "created_at": "2026-09-26T06:25:03.589Z",
+      "updated_at": "2026-09-26T06:25:03.589Z",
+      "read_time": "4 min read"
+    },
+    {
+      "id": "post-6",
+      "short_id": "f4h8c2",
+      "title": "The Viral Golden Retriever Who Learned How to Ride the Tokyo Metro Escalators",
+      "slug": "viral-golden-retriever-tokyo-escalators",
+      "description": "Meet Hachi, the disciplined service dog whose polite etiquette and tail-wagging subway journeys have captivated over 40 million viewers worldwide.",
+      "content": "TOKYO — Commuters navigating the bustling Shibuya station corridors have grown accustomed to an endearing morning sight: a calm golden retriever named Hachi, who stands perfectly still on the right side of the escalator, allowing hurried commuters to pass on the left.\n\nTrained as an emotional support companion for a local university professor, Hachi's innate habit of waiting for his signal before boarding the train has become a viral sensation across social networks.\n\n\"He takes public transit etiquette more seriously than most human passengers,\" remarked one amused station attendant. \"He looks forward to his morning commute like it's his daily shift at work.\"",
+      "category_id": "cat-7",
+      "category_name": "Funny",
+      "content_type": "funny",
+      "media_source": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "media_type": "youtube",
+      "thumbnail_url": "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 22400,
+      "author": "Kenji Sato",
+      "created_at": "2026-09-26T00:25:03.589Z",
+      "updated_at": "2026-09-26T00:25:03.589Z",
+      "read_time": "2 min read"
+    },
+    {
+      "id": "post-7",
+      "short_id": "d1w9y4",
+      "title": "The Royal Theater Stages Provocative Modern Reimagining of Shakespeare’s Coriolanus",
+      "slug": "royal-theater-coriolanus-modern-drama",
+      "description": "Set within a hyper-militarized near future of media conglomerates, the new production highlights the volatile intersection of populism and patrician pride.",
+      "content": "LONDON — Director Simon McBurney’s electrifying new staging of *Coriolanus* at the Olivier Theatre strips away the conventional Roman togas in favor of tactical gear, television news monitors, and live handheld cameras projected onto a thirty-foot LED wall.\n\nStarring award-winning actor David Oyelowo in the title role, the production presents the protagonist not simply as a disdainful patrician, but as a traumatized war machine unable to navigate the cynical artifice of modern electoral politics.\n\nAudience members are surrounded by roving cameramen filming crowd reactions, forcing the spectators themselves to confront their complicity in the political spectacle. The sold-out run has extended its booking through late autumn.",
+      "category_id": "cat-8",
+      "category_name": "Drama",
+      "content_type": "drama",
+      "media_source": "",
+      "media_type": "none",
+      "thumbnail_url": "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 3120,
+      "author": "Edward Fairfax",
+      "created_at": "2026-09-25T16:25:03.589Z",
+      "updated_at": "2026-09-25T16:25:03.589Z",
+      "read_time": "5 min read"
+    },
+    {
+      "id": "post-8",
+      "short_id": "a5r2x7",
+      "title": "Central Bank Explores Digital Sovereign Liquidity Corridors with Cross-Border Settlement",
+      "slug": "central-bank-digital-sovereign-liquidity-corridors",
+      "description": "Treasury officials and foreign exchange ministers outline multi-currency testing aimed at bypassing legacy correspondent banking bottlenecks.",
+      "content": "FRANKFURT — The European Central Bank, in coordination with the Bank of Japan and the Monetary Authority of Singapore, has published the conclusive findings from Phase III of Project Meridian, demonstrating automated atomic settlement across three distinct sovereign digital currencies.\n\nBy leveraging distributed settlement contracts that lock liquidity instantaneously without intermediaries, the consortium achieved cross-border remittances in under 400 milliseconds, slashing transactional costs by an estimated 74 percent.\n\nThe trial involved twenty-two commercial banking institutions, executing over fifty thousand simulated stress-test trades under high volatility parameters without a single settlement failure. Regulatory bodies are now preparing draft policy frameworks for formal institutional rollout.",
+      "category_id": "cat-1",
+      "category_name": "National",
+      "content_type": "article",
+      "media_source": "",
+      "media_type": "none",
+      "thumbnail_url": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80",
+      "status": "published",
+      "views": 5290,
+      "author": "Beatriz Morales",
+      "created_at": "2026-09-25T08:25:03.589Z",
+      "updated_at": "2026-09-25T08:25:03.589Z",
+      "read_time": "4 min read"
+    }
+  ],
+  "ads": [
+    {
+      "id": "ad-header",
+      "name": "Top Header Leaderboard (728×90)",
+      "position": "header_728x90",
+      "width": 728,
+      "height": 90,
+      "is_active": true,
+      "code": "<script>\natOptions={\n'key':'7ebbe04197a14538d45f70e760f68a3f',\n'format':'iframe',\n'height':90,\n'width':728,\n'params':{}\n};\n</script>\n<script src=\"https://www.highrevenueformat.com/7ebbe04197a14538d45f70e760f68a3f/invoke.js\"></script>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-sidebar-160x300",
+      "name": "Sidebar Skyscraper (160×300)",
+      "position": "sidebar_160x300",
+      "width": 160,
+      "height": 300,
+      "is_active": true,
+      "code": "<script>\natOptions={\n'key':'589a9400a510f9963e4e458538cb351d',\n'format':'iframe',\n'height':300,\n'width':160,\n'params':{}\n};\n</script>\n<script src=\"https://www.highrevenueformat.com/589a9400a510f9963e4e458538cb351d/invoke.js\"></script>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-sidebar-300x250",
+      "name": "Sidebar Medium Rectangle (300×250)",
+      "position": "sidebar_300x250",
+      "width": 300,
+      "height": 250,
+      "is_active": true,
+      "code": "<script>\natOptions={\n'key':'0e09b0c245656a60b6d301dd99919ef0',\n'format':'iframe',\n'height':250,\n'width':300,\n'params':{}\n};\n</script>\n<script src=\"https://www.highrevenueformat.com/0e09b0c245656a60b6d301dd99919ef0/invoke.js\"></script>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-between-content",
+      "name": "Between Content In-Feed Banner (468×60)",
+      "position": "between_content_468x60",
+      "width": 468,
+      "height": 60,
+      "is_active": true,
+      "code": "<script>\natOptions={\n'key':'b21410fad7b56068484dba3f5c35d1ca',\n'format':'iframe',\n'height':60,\n'width':468,\n'params':{}\n};\n</script>\n<script src=\"https://www.highrevenueformat.com/b21410fad7b56068484dba3f5c35d1ca/invoke.js\"></script>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-mobile-bottom",
+      "name": "Mobile Bottom Sticky Banner (320×50)",
+      "position": "mobile_bottom_320x50",
+      "width": 320,
+      "height": 50,
+      "is_active": true,
+      "code": "<script>\natOptions={\n'key':'11985295471a3c84d6a142bbb77fbaf1',\n'format':'iframe',\n'height':50,\n'width':320,\n'params':{}\n};\n</script>\n<script src=\"https://www.highrevenueformat.com/11985295471a3c84d6a142bbb77fbaf1/invoke.js\"></script>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-native-feed",
+      "name": "Native In-Feed Sponsored Placement",
+      "position": "native_feed",
+      "is_active": true,
+      "code": "<script async=\"async\" data-cfasync=\"false\" src=\"https://pl20628124.profitableratecpmnetwork.com/d664d2cc860385fa5df7ceb172eacf6b/invoke.js\"></script>\n<div id=\"container-d664d2cc860385fa5df7ceb172eacf6b\"></div>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-social-bar",
+      "name": "Floating Bottom Social Bar",
+      "position": "social_bar",
+      "is_active": false,
+      "code": "<script src=\"https://pl20654735.profitableratecpmnetwork.com/b2/c4/dd/b2c4ddb89f881de77ddd596f9bfa41a7.js\"></script>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-popunder",
+      "name": "Homepage Hidden Click Popunder Trigger",
+      "position": "popunder",
+      "is_active": true,
+      "code": "<script src=\"https://pl20627952.profitableratecpmnetwork.com/0e/5f/b9/0e5fb9407ed47dd6605faa50654a4022.js\"></script>",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    },
+    {
+      "id": "ad-skip-ad",
+      "name": "Smart Link Skip Ad Gate",
+      "position": "skip_ad",
+      "is_active": true,
+      "code": "https://www.profitableratecpmnetwork.com/u7c83wtb?key=8ad40353f84fe993feb17e6ca4a03326",
+      "created_at": "2026-09-27T08:25:03.589Z"
+    }
+  ],
+  "media": [
+    {
+      "title": "Test Logo",
+      "type": "image",
+      "url": "https://res.cloudinary.com/dmq5lbyso/image/upload/v1791166252/chronicle_news/dvzpjrerbmspwz25uplq.png",
+      "thumbnail_url": "https://res.cloudinary.com/dmq5lbyso/image/upload/v1791166252/chronicle_news/dvzpjrerbmspwz25uplq.png",
+      "size": "0.1 KB",
+      "id": "media-muum524v",
+      "created_at": "2026-10-05T02:10:53.071Z"
+    },
+    {
+      "title": "Screenshot_8.png",
+      "type": "image",
+      "url": "https://res.cloudinary.com/dmq5lbyso/image/upload/v1790730364/chronicle_news/qkfr4ov9pfw7378y3hnm.png",
+      "thumbnail_url": "https://res.cloudinary.com/dmq5lbyso/image/upload/v1790730364/chronicle_news/qkfr4ov9pfw7378y3hnm.png",
+      "size": "1276.2 KB",
+      "id": "media-munemgo6",
+      "created_at": "2026-09-30T01:06:04.902Z"
+    },
+    {
+      "title": "Test Cloudinary Dynamic Asset",
+      "type": "image",
+      "url": "https://res.cloudinary.com/dmq5lbyso/image/upload/v1790498130/chronicle_news/fqwdh0g42mefsxodxxfw.png",
+      "thumbnail_url": "https://res.cloudinary.com/dmq5lbyso/image/upload/v1790498130/chronicle_news/fqwdh0g42mefsxodxxfw.png",
+      "size": "0.1 KB",
+      "id": "media-mujkcvvg",
+      "created_at": "2026-09-27T08:35:31.036Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "comm-1",
+      "post_id": "post-1",
+      "author_name": "Arthur Pendelton",
+      "author_email": "arthur@oceanic-inst.org",
+      "content": "A monumental step forward. Transparent telemetry is the only way to avoid geopolitical disputes over open-sea interventions.",
+      "created_at": "2026-09-27T06:25:03.590Z",
+      "status": "approved"
+    },
+    {
+      "id": "comm-2",
+      "post_id": "post-2",
+      "author_name": "Li Wei",
+      "author_email": "wei.li@photonics.ac.cn",
+      "content": "180 teraflops per watt on standard SOI process will solve our data center power constraints if thermal drift is managed as reported.",
+      "created_at": "2026-09-27T05:25:03.590Z",
+      "status": "approved"
+    }
+  ],
+  "analytics": {
+    "total_views": 64432,
+    "daily_views": {
+      "2026-09-13": 3760,
+      "2026-09-14": 5302,
+      "2026-09-15": 3943,
+      "2026-09-16": 5795,
+      "2026-09-17": 5599,
+      "2026-09-18": 5375,
+      "2026-09-19": 3702,
+      "2026-09-20": 4233,
+      "2026-09-21": 4382,
+      "2026-09-22": 3728,
+      "2026-09-23": 2875,
+      "2026-09-24": 4892,
+      "2026-09-25": 4652,
+      "2026-09-26": 4101,
+      "2026-09-27": 4438,
+      "2026-09-30": 2
+    },
+    "post_views": {
+      "post-munepe5r-sw4d": 2
+    }
+  },
+  "system_settings": [
+    {
+      "id": "cfg-mujkbyc2",
+      "service_name": "supabase",
+      "encrypted_credentials": "772662543a6ac72b3c09e007322e660a:c8b4b4e23b34f7348535b81434c7b1fc:e27d12579bcc95c5372a9ec42d0aa062c751eaf43f17c873209fc867acd731ef506150467817ee708cebafa9389626c5a93dddbef4a97d812072c4af56fd93d927f98c611da5db3c2baaacaaba78a1da72a24cc45de2ec4406762d2fecb1492131c0d1d3709c363cb0398534bdc8e75ff8376b503d2a1d4e6c9ec93a2930216c7b56bdab888dcd590a1b413676c42d261262b0f5190c1412bd3b5ec6d40e5c42093fabc15f1cb93359d6e42e1d7d4237cdf3af841c87b93e0ca777c54a3622eb9d42eaad2ee7b7545a430615231f897704a9eacaba1f931025a404ea162d407e20efaa51327a90aa92658418666588c9ba38f5e5fbe9b37371f9741a3921e5747ee8bf51e438ddc7d1d7513d239b1cde1ccf4dd7844113b6a85c3b17b015cbecf7ed599fcc1564330dffc16fc027eb16e14f66c9d22ff267a01a015d7779464e7c411c55ea0b3f8e7f9db9da7c81dd0da2e2c567f5d5e0ea08e74df83f10d1075f54e8eccc2e07ee41675d8af297abeb80b5ee09709b2e176d3fc3cad8875175130930448691a91674aa1f679086c239e698f0c4fe68aaf1d6b719137ec8909e511010421ebc275a7ec2243b9c6c394c5517095e61b7123b71599449df2bb55e1ce6d1c186f29c258ed2dbbec13c945a6d1b915a6751e5d0d4794542a4c013424ad181736df7aa93ab80208e622636a0b5ba398d65a255c8f4e268f07756f7270fb68f36a2dffd8f4db581f4bde7e9bf69b9584f13c8aa78e8cc855f03fde6d8f6ac40e7835b0bc8b3b401fd59252cf2da28c613fca01f0471f18bd5039993cf10d15b83729e3080850b8e315449f92a97",
+      "is_enabled": true,
+      "status": "connected",
+      "status_message": "Runtime client initialized with active Supabase project",
+      "last_tested_at": "2026-10-10T04:43:13.065Z",
+      "updated_at": "2026-10-10T04:43:13.065Z",
+      "updated_by": "system"
+    },
+    {
+      "id": "cfg-munh26ia",
+      "service_name": "smtp",
+      "encrypted_credentials": "45277eb0ed0919ec8c982fcea1382eb6:1173ba27a1e898a0ea6a417670977b2d:cdd4ae627d116d08c62fcc09a56b6d578432111f7172ab3dc80e8cc7e46374dce01cd6de51d7da8b7891b34d09345b58bd6e1052225e06f7439a3e67c6434ac44f93e5cf8ea01edf5c404503581f28fa8fedb3c98a89b5a6349e33cb6bee3354f8889f64c257d7aea905b836d50ba469182139a448e8ab793e072af30acd1416c871022137a82b8aae56280aca78bccce9aaddf26cd604050891db1c9a19d78992236ae482de874d2a67f5f8ff27e768eb54ea08556b060c5f7eafcb791bffa90bcb35d242026fb697eb5422b275a5907d8ba761ae5bc4f290b853745858365cab25cbdbc91774eab25bd8e0ddc7031ac8bbebb4f1759843e1ff643229d3f0cc2b72f28b3479b9de0da534448262a4ec43b59ea87b6423f20ae41f8a0a124e34e7a8d2bff92b2e0d22049ae280cfeaf0aca7c363a57be9fb2723aee3",
+      "is_enabled": true,
+      "status": "failed",
+      "status_message": "SMTP connection failed: Invalid login: 535 Authentication failed",
+      "last_tested_at": "2026-09-30T02:14:38.821Z",
+      "updated_at": "2026-09-30T02:14:38.821Z",
+      "updated_by": "admin"
+    },
+    {
+      "id": "cfg-mv1ws7xm",
+      "service_name": "cloudinary",
+      "encrypted_credentials": "552231923e0be6aa3fd03ce7cb87813f:b079c770d300fa616e18135859472d6d:787b42847252539cec76fa1f0d3b6e50970b14ce46c2ff44fb91dd47c6f67d38d426693ff5103f758c2432f6948e4d77b10c4e5af247e5fe3a15bf1fe47b028f8fc27556d33b3a6beb40d666b7a6fc384a69d42c9ff47453f3535ee88216a33f23c0d6f482ae554c40f1addf20e988fcf166fb22026b808680e0b2f1dd0d8b9acbbf2ebdf0a02143be6e9836ee2d59647259c4247e407f2d0cab1c6a7aa45cc0dffc42d7",
+      "is_enabled": true,
+      "status": "connected",
+      "status_message": "Ready for media uploads",
+      "last_tested_at": "2026-10-10T04:43:13.066Z",
+      "updated_at": "2026-10-10T04:43:13.066Z",
+      "updated_by": "system"
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": "audit-muum524w-36zg",
+      "service_name": "cloudinary",
+      "action": "save",
+      "status": "success",
+      "details": "Asset uploaded to Cloudinary: chronicle_news/dvzpjrerbmspwz25uplq (0.1 KB)",
+      "performed_by": "admin",
+      "timestamp": "2026-10-05T02:10:53.072Z"
+    },
+    {
+      "id": "audit-muulcfgf-nmcg",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Meta Pixel settings updated (Pixel ID: 987654321098765, Enabled: true)",
+      "performed_by": "admin",
+      "timestamp": "2026-10-05T01:48:37.311Z"
+    },
+    {
+      "id": "audit-muulccpl-3bio",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Google AdSense settings updated (Publisher ID: ca-pub-9988776655443322, Enabled: true)",
+      "performed_by": "admin",
+      "timestamp": "2026-10-05T01:48:33.753Z"
+    },
+    {
+      "id": "audit-muulc9z2-6ase",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Google Analytics settings updated (Measurement ID: G-CHRONICLE777, Enabled: true)",
+      "performed_by": "admin",
+      "timestamp": "2026-10-05T01:48:30.206Z"
+    },
+    {
+      "id": "audit-muulc3o7-i3jj",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Google Search Console verification code updated: Active",
+      "performed_by": "admin",
+      "timestamp": "2026-10-05T01:48:22.039Z"
+    },
+    {
+      "id": "audit-muulc0ic-5yyl",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Custom Domain configuration saved: news.chronicle-daily.org (https://news.chronicle-daily.org)",
+      "performed_by": "admin",
+      "timestamp": "2026-10-05T01:48:17.940Z"
+    },
+    {
+      "id": "audit-munh2mzq-r1m7",
+      "service_name": "smtp",
+      "action": "test",
+      "status": "failed",
+      "details": "SMTP connection failed: Invalid login: 535 Authentication failed [1624ms]",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T02:14:38.822Z"
+    },
+    {
+      "id": "audit-munh2d8h-eh1z",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Google AdSense settings updated (Publisher ID: ca-pub-9988776655443322, Enabled: true)",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T02:14:26.177Z"
+    },
+    {
+      "id": "audit-munh2d83-dbxo",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Meta Pixel settings updated (Pixel ID: 987654321098765, Enabled: true)",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T02:14:26.163Z"
+    },
+    {
+      "id": "audit-munh2d7m-2c41",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Google Analytics settings updated (Measurement ID: G-CHRONICLE777, Enabled: true)",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T02:14:26.146Z"
+    },
+    {
+      "id": "audit-munh2d75-5owa",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Google Search Console verification code updated: Active",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T02:14:26.129Z"
+    },
+    {
+      "id": "audit-munh26ia-itu5",
+      "service_name": "smtp",
+      "action": "save",
+      "status": "success",
+      "details": "SMTP email configuration updated (Host: smtp.mailgun.org:587, Encryption: tls). Password AES-256 encrypted.",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T02:14:17.458Z"
+    },
+    {
+      "id": "audit-munh23iz-15ef",
+      "service_name": "deployment",
+      "action": "save",
+      "status": "success",
+      "details": "Custom Domain configuration saved: news.chronicle-daily.org (https://news.chronicle-daily.org)",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T02:14:13.595Z"
+    },
+    {
+      "id": "audit-munemgo8-smae",
+      "service_name": "cloudinary",
+      "action": "save",
+      "status": "success",
+      "details": "Asset uploaded to Cloudinary: chronicle_news/qkfr4ov9pfw7378y3hnm (1276.2 KB)",
+      "performed_by": "admin",
+      "timestamp": "2026-09-30T01:06:04.904Z"
+    },
+    {
+      "id": "audit-mujkcvvh-426j",
+      "service_name": "cloudinary",
+      "action": "save",
+      "status": "success",
+      "details": "Asset uploaded to Cloudinary: chronicle_news/fqwdh0g42mefsxodxxfw (0.1 KB)",
+      "performed_by": "admin",
+      "timestamp": "2026-09-27T08:35:31.037Z"
+    },
+    {
+      "id": "audit-mujkcch2-jxns",
+      "service_name": "supabase",
+      "action": "test",
+      "status": "success",
+      "details": "Successfully connected to Supabase (https://swtjumssgwdmxscwgmtf.supabase.co) in 253ms. Connected to schema 'public' (run supabase_schema.sql to provision news tables). [253ms]",
+      "performed_by": "admin",
+      "timestamp": "2026-09-27T08:35:05.894Z"
+    },
+    {
+      "id": "audit-mujkc20z-uvec",
+      "service_name": "supabase",
+      "action": "test",
+      "status": "failed",
+      "details": "Connection check failed: Could not find the table 'public.settings' in the schema cache [1320ms]",
+      "performed_by": "admin",
+      "timestamp": "2026-09-27T08:34:52.355Z"
+    },
+    {
+      "id": "audit-mujkbyc4-iy3x",
+      "service_name": "supabase",
+      "action": "save",
+      "status": "success",
+      "details": "Supabase configuration updated (Project: https://swtjumssgwdmxscwgmtf.supabase.co, Schema: public). AES-256 encrypted.",
+      "performed_by": "admin",
+      "timestamp": "2026-09-27T08:34:47.572Z"
+    },
+    {
+      "id": "audit-mujkbumo-nnfs",
+      "service_name": "cloudinary",
+      "action": "test",
+      "status": "success",
+      "details": "Cloudinary credentials verified for cloud \"dmq5lbyso\". Ping latency: 615ms. [615ms]",
+      "performed_by": "admin",
+      "timestamp": "2026-09-27T08:34:42.768Z"
+    },
+    {
+      "id": "audit-mujkatkr-ofxf",
+      "service_name": "supabase",
+      "action": "test",
+      "status": "failed",
+      "details": "Connection failed: Supabase :root{--font-sans:'inter', 'inter Fallback', system-ui, Helvetica Neue, Helvetica, Arial, sans-serif;--font-heading:'Manrope', 'Manrope Fallback';--font-source-code-pro:'sourceCodePro', 'sourceCodePro Fallback', Source Code Pro, Office Code Pro, Menlo, monospace;} {} ((e,",
+      "performed_by": "admin",
+      "timestamp": "2026-09-27T08:33:54.747Z"
+    },
+    {
+      "id": "audit-mujkanml-89va",
+      "service_name": "cloudinary",
+      "action": "test",
+      "status": "success",
+      "details": "Cloudinary credentials verified for cloud \"dmq5lbyso\". Ping latency: 610ms. [610ms]",
+      "performed_by": "admin",
+      "timestamp": "2026-09-27T08:33:47.037Z"
+    }
+  ],
+  "deployment_settings": {
+    "primary_domain": "news.chronicle-daily.org",
+    "website_url": "https://news.chronicle-daily.org",
+    "canonical_url": "https://news.chronicle-daily.org",
+    "google_search_console_code": "google-site-verification=SAMPLE_TEST_CODE_123",
+    "google_analytics_id": "G-CHRONICLE777",
+    "google_analytics_enabled": true,
+    "meta_pixel_id": "987654321098765",
+    "meta_pixel_enabled": true,
+    "google_adsense_id": "ca-pub-9988776655443322",
+    "google_adsense_enabled": true
+  }
+}
