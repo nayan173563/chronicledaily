@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "data/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/uploads/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/p/:shortId(.*)",
+      "destination": "/api?og_short=:shortId"
+    },
+    {
+      "source": "/post/:slug(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*([Ff]acebook|[Ff]acebot|[Tt]witter|[Ww]hats[Aa]pp|[Tt]elegram|[Dd]iscord|[Ll]inked[Ii]n|[Pp]interest|[Gg]ooglebot|[Bb]ingbot|[Aa]pplebot|[Ss]kype|[Vv]iber|[Rr]eddit|[Ss]lack|[Ee]mbedly|[Qq]uora|[Mm]astodon|[Ii]nstagram|[Mm]eta|[Ll]ine|[Tt]hreads|[Bb]ot|[Cc]rawler|[Ss]pider|[Pp]review).*"
+        }
+      ],
+      "destination": "/api?og_slug=:slug"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*([Ff]acebook|[Ff]acebot|[Tt]witter|[Ww]hats[Aa]pp|[Tt]elegram|[Dd]iscord|[Ll]inked[Ii]n|[Pp]interest|[Gg]ooglebot|[Bb]ingbot|[Aa]pplebot|[Ss]kype|[Vv]iber|[Rr]eddit|[Ss]lack|[Ee]mbedly|[Qq]uora|[Mm]astodon|[Ii]nstagram|[Mm]eta|[Ll]ine|[Tt]hreads|[Bb]ot|[Cc]rawler|[Ss]pider|[Pp]review).*"
+        }
+      ],
+      "destination": "/api?og_home=1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --color-primary: #0f172a;
+    --color-secondary: #475569;
+    --color-accent: #b91c1c;
+  }
+
+  body {
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Custom newspaper styling */
+.drop-cap:first-letter {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  line-height: 1;
+  float: left;
+  margin-right: 0.65rem;
+  margin-top: 0.2rem;
+  font-weight: 800;
+}
+
+/* ============================================================ */
+/* ADMIN THEME STYLING: LIGHT / NORMAL MODE                     */
+/* Professional, High-Contrast, Clean Light Mode                */
+/* ============================================================ */
+
+.admin-theme-light {
+  color-scheme: light;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Structural Layout Elements */
+.admin-theme-light aside {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 1px 0 3px 0 rgba(0, 0, 0, 0.04) !important;
+}
+
+.admin-theme-light main {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.admin-theme-light header {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Cards & Surface Containers (Handles all neutral-950, 900, 800 variants with and without opacity) */
+.admin-theme-light [class*="bg-neutral-950"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+.admin-theme-light [class*="bg-neutral-900"]:not(button):not(input):not(textarea):not(select):not(.bg-red-600):not(.bg-amber-600) {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+.admin-theme-light [class*="bg-neutral-800"]:not(button):not(input):not(textarea):not(select):not(.bg-red-600) {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Borders */
+.admin-theme-light [class*="border-neutral-900"],
+.admin-theme-light [class*="border-neutral-800"],
+.admin-theme-light [class*="border-neutral-700"],
+.admin-theme-light [class*="border-neutral-600"] {
+  border-color: #e2e8f0 !important;
+}
+
+.admin-theme-light .divide-neutral-900 > :not([hidden]) ~ :not([hidden]),
+.admin-theme-light .divide-neutral-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+
+/* Typography & Contrast */
+.admin-theme-light .text-white {
+  color: #0f172a !important;
+}
+
+.admin-theme-light [class*="text-neutral-100"],
+.admin-theme-light [class*="text-neutral-200"] {
+  color: #1e293b !important;
+}
+
+.admin-theme-light [class*="text-neutral-300"] {
+  color: #334155 !important;
+}
+
+.admin-theme-light [class*="text-neutral-400"] {
+  color: #64748b !important;
+}
+
+.admin-theme-light [class*="text-neutral-500"] {
+  color: #64748b !important;
+}
+
+/* Inputs, Textareas, Selects & Forms (Always crisp white background with dark text) */
+.admin-theme-light input:not([type="checkbox"]):not([type="radio"]),
+.admin-theme-light select,
+.admin-theme-light textarea {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04) !important;
+}
+
+.admin-theme-light input:not([type="checkbox"]):not([type="radio"]):focus,
+.admin-theme-light select:focus,
+.admin-theme-light textarea:focus {
+  border-color: #ef4444 !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15) !important;
+}
+
+.admin-theme-light input::placeholder,
+.admin-theme-light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Buttons (Except primary CTA buttons like red Publish or amber Draft) */
+.admin-theme-light button[class*="bg-neutral-900"],
+.admin-theme-light button[class*="bg-neutral-800"],
+.admin-theme-light button.bg-neutral-900,
+.admin-theme-light button.bg-neutral-800 {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.admin-theme-light button[class*="bg-neutral-900"]:hover,
+.admin-theme-light button[class*="bg-neutral-800"]:hover,
+.admin-theme-light button.bg-neutral-900:hover,
+.admin-theme-light button.bg-neutral-800:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Primary CTA & Status buttons remain colorful and clear */
+.admin-theme-light button.bg-red-600,
+.admin-theme-light button[class*="bg-red-600"] {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+.admin-theme-light button.bg-amber-700,
+.admin-theme-light button[class*="bg-amber-700"] {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+/* Sidebar navigation buttons */
+.admin-theme-light aside nav button:not(.bg-red-600) {
+  color: #475569 !important;
+}
+
+.admin-theme-light aside nav button:not(.bg-red-600):hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.admin-theme-light aside nav button.bg-red-600 {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.3) !important;
+}
+
+/* Badges, Chips & Alert Banners */
+.admin-theme-light [class*="bg-red-950"],
+.admin-theme-light [class*="bg-red-900"] {
+  background-color: #fef2f2 !important;
+  border-color: #fecaca !important;
+  color: #b91c1c !important;
+}
+
+.admin-theme-light [class*="text-red-400"] {
+  color: #dc2626 !important;
+}
+
+.admin-theme-light [class*="bg-emerald-950"],
+.admin-theme-light [class*="bg-emerald-900"] {
+  background-color: #f0fdf4 !important;
+  border-color: #bbf7d0 !important;
+  color: #15803d !important;
+}
+
+.admin-theme-light [class*="text-emerald-400"],
+.admin-theme-light [class*="text-emerald-300"] {
+  color: #16a34a !important;
+}
+
+.admin-theme-light [class*="bg-amber-950"],
+.admin-theme-light [class*="bg-amber-900"] {
+  background-color: #fffbeb !important;
+  border-color: #fde68a !important;
+  color: #b45309 !important;
+}
+
+.admin-theme-light [class*="text-amber-400"],
+.admin-theme-light [class*="text-amber-300"] {
+  color: #d97706 !important;
+}
+
+.admin-theme-light [class*="bg-sky-950"],
+.admin-theme-light [class*="bg-blue-950"],
+.admin-theme-light [class*="bg-purple-950"] {
+  background-color: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+}
+
+/* Tables, Grids & Data Rows */
+.admin-theme-light table {
+  border-color: #e2e8f0 !important;
+}
+
+.admin-theme-light thead tr,
+.admin-theme-light tr[class*="bg-neutral-900"] {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+}
+
+.admin-theme-light th {
+  color: #475569 !important;
+  border-color: #e2e8f0 !important;
+}
+
+.admin-theme-light td {
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+.admin-theme-light tr:hover,
+.admin-theme-light tr[class*="hover:bg-neutral-900"]:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Post list format pills & short ID tags */
+.admin-theme-light td span[class*="bg-neutral-900"] {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* Code, Monospace & Pre blocks */
+.admin-theme-light code:not(.bg-transparent),
+.admin-theme-light pre {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Social Share Preview Card Mockup in Create Content */
+.admin-theme-light .aspect-\[1\.91\/1\] {
+  background-color: #e2e8f0 !important;
+}
+
+.admin-theme-light .aspect-\[1\.91\/1\] + div {
+  background-color: #ffffff !important;
+}
+
+.admin-theme-light .aspect-\[1\.91\/1\] + div h4 {
+  color: #0f172a !important;
+}
+
+.admin-theme-light .aspect-\[1\.91\/1\] + div p {
+  color: #475569 !important;
+}
+
+/* Keep image overlay badge legible (e.g. 1200x630 OG) */
+.admin-theme-light [class*="bg-black/"] {
+  background-color: rgba(15, 23, 42, 0.75) !important;
+  color: #ffffff !important;
+}

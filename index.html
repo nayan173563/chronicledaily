@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          var _origFetch = window.fetch;
+          var _curFetch = _origFetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return _curFetch; },
+            set: function(fn) { _curFetch = fn; }
+          });
+        } catch (e) {}
+        window.addEventListener('error', function(e) {
+          if (e && e.filename && e.filename.indexOf('chrome-extension://') !== -1) {
+            e.preventDefault();
+          }
+        });
+      })();
+    </script>
+    <title>The Daily Chronicle - Professional News &amp; Media Portal</title>
+    <meta name="description" content="Independent Journal of Record &amp; Global Media Dispatch. Verified investigative journalism, breaking world reports, and real-time news." />
+    
+    <!-- Open Graph (Facebook, WhatsApp, Messenger, Telegram, LinkedIn, Discord) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Daily Chronicle" />
+    <meta property="og:title" content="The Daily Chronicle - Professional News &amp; Media Portal" />
+    <meta property="og:description" content="Independent Journal of Record &amp; Global Media Dispatch. Verified investigative journalism, breaking world reports, and real-time news." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80" />
+    <meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Daily Chronicle News Portal" />
+    <link rel="image_src" href="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80" />
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ChronicleDaily" />
+    <meta name="twitter:title" content="The Daily Chronicle - Professional News &amp; Media Portal" />
+    <meta name="twitter:description" content="Independent Journal of Record &amp; Global Media Dispatch. Verified investigative journalism, breaking world reports, and real-time news." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80" />
+    <meta name="twitter:image:alt" content="The Daily Chronicle News Portal" />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "The Daily Chronicle",
+      "logo": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&h=630&q=80",
+      "description": "Independent Journal of Record & Global Media Dispatch. Verified investigative journalism, breaking world reports, and real-time news."
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Inter:wght@300..800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-neutral-50 text-neutral-900 antialiased selection:bg-neutral-800 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

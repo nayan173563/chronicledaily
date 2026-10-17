@@ -1,0 +1,6 @@
+{
+  "name": "Chronicle Daily - Professional News & Media Portal",
+  "description": "Full-stack editorial news portal and media publishing network with universal CMS, skip-ad monetization, and live admin control.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
