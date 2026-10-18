@@ -44,14 +44,17 @@ class RuntimeCloudServices {
     if (this.isInitialized) return;
 
     try {
-      // 1. Supabase init (Uses admin settings if saved; otherwise uses default credentials)
+      // 1. Supabase init (Uses admin settings if saved and decryptable; otherwise uses env/default credentials)
+      let sbApplied = false;
       const spRecord = dbProvider.getSystemSetting('supabase');
       if (spRecord && spRecord.encrypted_credentials) {
         const decrypted = decryptCredentials<SupabaseCredentials>(spRecord.encrypted_credentials);
         if (decrypted && decrypted.project_url) {
           this.applySupabaseConfig(decrypted);
+          sbApplied = true;
         }
-      } else {
+      }
+      if (!sbApplied) {
         const defaultSb: SupabaseCredentials = {
           project_url: process.env.SUPABASE_URL || 'https://oyjivjgyrtnyqwacjvgx.supabase.co',
           project_id: process.env.SUPABASE_PROJECT_ID || 'oyjivjgyrtnyqwacjvgx',
@@ -63,14 +66,17 @@ class RuntimeCloudServices {
         this.applySupabaseConfig(defaultSb);
       }
 
-      // 2. Cloudinary init (Uses admin settings if saved; otherwise uses default credentials)
+      // 2. Cloudinary init (Uses admin settings if saved and decryptable; otherwise uses env/default credentials)
+      let cldApplied = false;
       const cldRecord = dbProvider.getSystemSetting('cloudinary');
       if (cldRecord && cldRecord.encrypted_credentials) {
         const decrypted = decryptCredentials<CloudinaryCredentials>(cldRecord.encrypted_credentials);
         if (decrypted && decrypted.cloud_name) {
           this.applyCloudinaryConfig(decrypted);
+          cldApplied = true;
         }
-      } else {
+      }
+      if (!cldApplied) {
         const defaultCld: CloudinaryCredentials = {
           cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'cek17wle',
           api_key: process.env.CLOUDINARY_API_KEY || '219759888474739',
@@ -379,7 +385,14 @@ class RuntimeCloudServices {
   // ----------------------------------------------------
 
   public getClientSafeSupabaseView(storedRecord?: any) {
-    const config = this.supabaseConfig || (storedRecord?.encrypted_credentials ? decryptCredentials<SupabaseCredentials>(storedRecord.encrypted_credentials) : null);
+    let config: SupabaseCredentials | null = null;
+    if (storedRecord?.encrypted_credentials) {
+      config = decryptCredentials<SupabaseCredentials>(storedRecord.encrypted_credentials);
+    }
+    if (!config || !config.project_url) {
+      config = this.supabaseConfig;
+    }
+
     return {
       service_name: 'supabase',
       project_url: config?.project_url || '',
@@ -398,7 +411,14 @@ class RuntimeCloudServices {
   }
 
   public getClientSafeCloudinaryView(storedRecord?: any) {
-    const config = this.cloudinaryConfig || (storedRecord?.encrypted_credentials ? decryptCredentials<CloudinaryCredentials>(storedRecord.encrypted_credentials) : null);
+    let config: CloudinaryCredentials | null = null;
+    if (storedRecord?.encrypted_credentials) {
+      config = decryptCredentials<CloudinaryCredentials>(storedRecord.encrypted_credentials);
+    }
+    if (!config || !config.cloud_name) {
+      config = this.cloudinaryConfig;
+    }
+
     return {
       service_name: 'cloudinary',
       cloud_name: config?.cloud_name || '',

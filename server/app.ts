@@ -610,36 +610,94 @@ app.all(['/api/auth/reset-password', '/api/auth/request-reset-otp'], (_req: Requ
 // POSTS ROUTES
 // ----------------------------------------------------
 
-app.get('/api/posts', (req: Request, res: Response) => {
+app.get('/api/posts', async (req: Request, res: Response) => {
   const { category_id, status, search, content_type } = req.query;
+
+  // 1. If Supabase is active, fetch live posts from Supabase cloud database
+  if (cloudServices.isSupabaseActive()) {
+    const client = cloudServices.getSupabaseClient();
+    if (client) {
+      try {
+        let query = client.from('posts').select('*');
+        if (status) query = query.eq('status', String(status));
+        if (category_id) query = query.eq('category_id', String(category_id));
+        if (content_type) query = query.eq('content_type', String(content_type));
+        if (search) query = query.ilike('title', `%${String(search)}%`);
+
+        const { data, error } = await query.order('created_at', { ascending: false });
+        if (!error && Array.isArray(data) && data.length > 0) {
+          return res.json(data);
+        }
+      } catch (err: any) {
+        console.warn('[Supabase API Notice]:', err.message);
+      }
+    }
+  }
+
+  // 2. Fallback to local in-memory posts
   const posts = db.getPosts({
     category_id: category_id as string,
     status: status as string,
     search: search as string,
     content_type: content_type as string
   });
-  res.json(posts);
+  return res.json(posts);
 });
 
-app.get('/api/posts/:id', (req: Request, res: Response) => {
+app.get('/api/posts/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  if (cloudServices.isSupabaseActive()) {
+    const client = cloudServices.getSupabaseClient();
+    if (client) {
+      try {
+        const { data, error } = await client
+          .from('posts')
+          .select('*')
+          .or(`id.eq.${id},slug.eq.${id}`)
+          .maybeSingle();
+        if (!error && data) {
+          db.incrementPostView(data.id);
+          return res.json(data);
+        }
+      } catch (e: any) {}
+    }
+  }
+
   const post = db.getPostById(id);
   if (!post) {
     return res.status(404).json({ error: 'Post not found' });
   }
-  // increment view count
   db.incrementPostView(id);
-  res.json(post);
+  return res.json(post);
 });
 
-app.get('/api/posts/short/:shortId', (req: Request, res: Response) => {
+app.get('/api/posts/short/:shortId', async (req: Request, res: Response) => {
   const { shortId } = req.params;
+
+  if (cloudServices.isSupabaseActive()) {
+    const client = cloudServices.getSupabaseClient();
+    if (client) {
+      try {
+        const { data, error } = await client
+          .from('posts')
+          .select('*')
+          .eq('short_id', shortId)
+          .maybeSingle();
+        if (!error && data) {
+          db.incrementPostView(data.id);
+          return res.json(data);
+        }
+      } catch (e: any) {}
+    }
+  }
+
   const post = db.getPostByShortId(shortId);
   if (!post) {
     return res.status(404).json({ error: 'Post not found' });
   }
   db.incrementPostView(post.id);
-  res.json(post);
+  return res.json(post);
 });
 
 app.post('/api/posts', requireAuth, (req: Request, res: Response) => {

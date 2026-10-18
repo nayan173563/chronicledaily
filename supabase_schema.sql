@@ -133,10 +133,34 @@ ALTER TABLE public.ads ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
 
--- Allow public read access to published posts, categories, ads, settings, and comments
-CREATE POLICY "Public Read Posts" ON public.posts FOR SELECT USING (status = 'published');
+-- Allow public read access to published posts, categories, ads, settings, and comments (Idempotent safe)
+DROP POLICY IF EXISTS "Public Read Posts" ON public.posts;
+CREATE POLICY "Public Read Posts" ON public.posts FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Read Categories" ON public.categories;
 CREATE POLICY "Public Read Categories" ON public.categories FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Read Ads" ON public.ads;
 CREATE POLICY "Public Read Ads" ON public.ads FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Read Settings" ON public.settings;
 CREATE POLICY "Public Read Settings" ON public.settings FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Read Comments" ON public.comments;
 CREATE POLICY "Public Read Comments" ON public.comments FOR SELECT USING (status = 'approved');
+
+DROP POLICY IF EXISTS "Public Submit Comments" ON public.comments;
 CREATE POLICY "Public Submit Comments" ON public.comments FOR INSERT WITH CHECK (true);
+
+-- Allow full administrative permissions
+DROP POLICY IF EXISTS "Admin Full Access Posts" ON public.posts;
+CREATE POLICY "Admin Full Access Posts" ON public.posts FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin Full Access Categories" ON public.categories;
+CREATE POLICY "Admin Full Access Categories" ON public.categories FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin Full Access Settings" ON public.settings;
+CREATE POLICY "Admin Full Access Settings" ON public.settings FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin Full Access Ads" ON public.ads;
+CREATE POLICY "Admin Full Access Ads" ON public.ads FOR ALL USING (true) WITH CHECK (true);

@@ -11,6 +11,7 @@ try {
 }
 import { Post, Category, Ad, WebsiteSettings, MediaItem, Comment, DeploymentSettings, SmtpSettings, SmtpSettingsView } from '../src/types';
 import { encryptCredentials, decryptCredentials, maskKey } from './crypto';
+import { cloudServices } from './cloudServices';
 
 const SEED_FILE = path.resolve(process.cwd(), 'data', 'news_db.json');
 const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.resolve(process.cwd(), 'data');
@@ -752,6 +753,36 @@ class Database {
     };
     this.data.posts.unshift(newPost);
     this.save();
+
+    // Asynchronously sync to Supabase if active
+    if (cloudServices.isSupabaseActive()) {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        client.from('posts').insert({
+          id: newPost.id,
+          short_id: newPost.short_id,
+          title: newPost.title,
+          slug: newPost.slug,
+          description: newPost.description || '',
+          content: newPost.content,
+          category_id: newPost.category_id,
+          content_type: newPost.content_type || 'news',
+          media_source: newPost.media_source || '',
+          media_type: newPost.media_type || 'none',
+          thumbnail_url: newPost.thumbnail_url || '',
+          status: newPost.status || 'published',
+          views: newPost.views || 0,
+          author: newPost.author || 'Chief Editor',
+          read_time: newPost.read_time || '4 min read',
+          created_at: newPost.created_at,
+          updated_at: newPost.updated_at
+        }).then(({ error }: any) => {
+          if (error) console.warn('[Supabase Sync] Insert post error:', error.message);
+          else console.log('[Supabase Sync] Post successfully persisted to Supabase:', newPost.id);
+        }).catch((err: any) => console.warn('[Supabase Sync] Network error:', err.message));
+      }
+    }
+
     return newPost;
   }
 
@@ -768,6 +799,20 @@ class Database {
       updated_at: new Date().toISOString()
     };
     this.save();
+
+    // Asynchronously update in Supabase if active
+    if (cloudServices.isSupabaseActive()) {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        client.from('posts').update({
+          ...updates,
+          updated_at: this.data.posts[idx].updated_at
+        }).eq('id', id).then(({ error }: any) => {
+          if (error) console.warn('[Supabase Sync] Update post error:', error.message);
+        }).catch((err: any) => console.warn('[Supabase Sync] Update error:', err.message));
+      }
+    }
+
     return this.data.posts[idx];
   }
 
@@ -776,6 +821,17 @@ class Database {
     if (idx === -1) return false;
     this.data.posts.splice(idx, 1);
     this.save();
+
+    // Asynchronously delete from Supabase if active
+    if (cloudServices.isSupabaseActive()) {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        client.from('posts').delete().eq('id', id).then(({ error }: any) => {
+          if (error) console.warn('[Supabase Sync] Delete post error:', error.message);
+        }).catch((err: any) => console.warn('[Supabase Sync] Delete error:', err.message));
+      }
+    }
+
     return true;
   }
 

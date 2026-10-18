@@ -97,6 +97,13 @@
       "slug": "drama",
       "description": "High-stakes serialized productions, theatrical recaps, and stories",
       "color": "#BE185D"
+    },
+    {
+      "id": "cat-9",
+      "name": "Movies",
+      "slug": "movies",
+      "description": "Cinema, films and premieres",
+      "color": "#0f172a"
     }
   ],
   "posts": [
