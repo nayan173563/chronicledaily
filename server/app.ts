@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import { db, hashPassword, verifyPassword } from './db';
+import { Post } from '../src/types';
 import { checkSupabaseHealth } from './supabase';
 import { cloudServices } from './cloudServices';
 import { encryptCredentials, decryptCredentials } from './crypto';
@@ -307,8 +308,39 @@ function renderHomepageSocialHtml(settings: any, baseUrl: string) {
 </html>`;
 }
 
+async function getPostAsync(identifier: string): Promise<Post | null> {
+  if (!identifier) return null;
+  const clean = identifier.trim().split('?')[0].split('/')[0];
+
+  // 1. Check local db/memory
+  const local = db.getPostById(clean) || db.getPostByShortId(clean);
+  if (local) return local;
+
+  // 2. Query Supabase posts table
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        const { data, error } = await client
+          .from('posts')
+          .select('*')
+          .or(`slug.eq."${clean}",id.eq."${clean}",short_id.eq."${clean}"`)
+          .limit(1)
+          .maybeSingle();
+
+        if (data && !error) {
+          return data as Post;
+        }
+      }
+    } catch (e: any) {
+      console.warn('[Social Share] Supabase post query error:', e.message);
+    }
+  }
+  return null;
+}
+
 // Social Share Middleware (intercepts crawler requests with dynamic OG/Twitter metadata)
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use(async (req: Request, res: Response, next: NextFunction) => {
   const ua = req.get('user-agent') || '';
   const isCrawler = isSocialCrawler(ua);
 
@@ -319,8 +351,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   if (!slug && req.path.startsWith('/post/')) {
     slug = req.path.replace(/^\/post\//, '');
   }
+  if (!slug && req.path.startsWith('/article/')) {
+    slug = req.path.replace(/^\/article\//, '');
+  }
   if (!slug && matchedPath.startsWith('/post/')) {
     slug = matchedPath.replace(/^\/post\//, '');
+  }
+  if (!slug && matchedPath.startsWith('/article/')) {
+    slug = matchedPath.replace(/^\/article\//, '');
   }
 
   const explicitShort = (req.query.og_short as string) || null;
@@ -340,7 +378,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   // If explicitly requested via Vercel rewrite or crawler parameter, ALWAYS return rendered Open Graph HTML
   if (explicitSlug) {
     const cleanSlug = explicitSlug.split('?')[0].split('/')[0];
-    const post = db.getPostById(cleanSlug) || db.getPostByShortId(cleanSlug);
+    const post = await getPostAsync(cleanSlug);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400');
     if (post) {
@@ -352,7 +390,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
   if (explicitShort) {
     const cleanShortId = explicitShort.split('?')[0].split('/')[0];
-    const post = db.getPostByShortId(cleanShortId) || db.getPostById(cleanShortId);
+    const post = await getPostAsync(cleanShortId);
     if (!isCrawler) {
       if (post) return res.redirect(302, '/post/' + post.slug);
       return res.redirect(302, '/');
@@ -372,10 +410,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     return res.send(renderHomepageSocialHtml(settings, baseUrl));
   }
 
-  // If hit directly by social crawler or preview request on /post/:slug or /p/:shortId
+  // If hit directly by social crawler or preview request on /post/:slug or /article/:slug
   if (slug && (isCrawler || req.query.preview === '1')) {
     const cleanSlug = slug.split('?')[0].split('/')[0];
-    const post = db.getPostById(cleanSlug) || db.getPostByShortId(cleanSlug);
+    const post = await getPostAsync(cleanSlug);
     if (post) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400');
@@ -385,7 +423,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
   if (shortId) {
     const cleanShortId = shortId.split('?')[0].split('/')[0];
-    const post = db.getPostByShortId(cleanShortId) || db.getPostById(cleanShortId);
+    const post = await getPostAsync(cleanShortId);
     if (post) {
       if (isCrawler || req.query.preview === '1') {
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -700,9 +738,24 @@ app.get('/api/posts/short/:shortId', async (req: Request, res: Response) => {
   return res.json(post);
 });
 
-app.post('/api/posts', requireAuth, (req: Request, res: Response) => {
+app.post('/api/posts', requireAuth, async (req: Request, res: Response) => {
   try {
     const post = db.createPost(req.body);
+    if (post && post.thumbnail_url && cloudServices.isSupabaseActive()) {
+      try {
+        const client = cloudServices.getSupabaseClient();
+        if (client) {
+          await client.from('media').upsert({
+            id: 'media-' + post.id,
+            title: post.title ? `${post.title.substring(0, 80)} Thumbnail` : 'Post Thumbnail',
+            type: 'image',
+            url: post.thumbnail_url,
+            thumbnail_url: post.thumbnail_url,
+            created_at: post.created_at
+          });
+        }
+      } catch (mErr: any) {}
+    }
     res.status(201).json(post);
   } catch (err: any) {
     res.status(400).json({ error: err.message });
@@ -756,24 +809,102 @@ app.delete('/api/categories/:id', requireAuth, (req: Request, res: Response) => 
 // ADVERTISEMENTS ROUTES
 // ----------------------------------------------------
 
-app.get('/api/ads', (_req: Request, res: Response) => {
+app.get('/api/ads', async (_req: Request, res: Response) => {
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        const { data, error } = await client.from('ads').select('*').order('created_at', { ascending: true });
+        if (!error && Array.isArray(data) && data.length > 0) {
+          return res.json(data);
+        }
+        // If Supabase table is empty, auto-seed with default ads
+        if (!error && Array.isArray(data) && data.length === 0) {
+          const defaultAds = db.getAds();
+          if (defaultAds.length > 0) {
+            await client.from('ads').upsert(defaultAds.map(a => ({
+              id: a.id,
+              name: a.name,
+              position: a.position,
+              code: a.code,
+              is_active: a.is_active,
+              width: a.width ? String(a.width) : null,
+              height: a.height ? String(a.height) : null,
+              created_at: a.created_at || new Date().toISOString()
+            })));
+            return res.json(defaultAds);
+          }
+        }
+      }
+    } catch (e: any) {
+      console.warn('Error reading ads from Supabase:', e.message);
+    }
+  }
   res.json(db.getAds());
 });
 
-app.post('/api/ads', requireAuth, (req: Request, res: Response) => {
+app.post('/api/ads', requireAuth, async (req: Request, res: Response) => {
   const ad = db.createAd(req.body);
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        await client.from('ads').upsert({
+          id: ad.id,
+          name: ad.name,
+          position: ad.position,
+          code: ad.code,
+          is_active: ad.is_active,
+          width: ad.width ? String(ad.width) : null,
+          height: ad.height ? String(ad.height) : null,
+          created_at: ad.created_at
+        });
+      }
+    } catch (e: any) {
+      console.warn('Error saving ad to Supabase:', e.message);
+    }
+  }
   res.status(201).json(ad);
 });
 
-app.put('/api/ads/:id', requireAuth, (req: Request, res: Response) => {
+app.put('/api/ads/:id', requireAuth, async (req: Request, res: Response) => {
   const updated = db.updateAd(req.params.id, req.body);
-  if (!updated) return res.status(404).json({ error: 'Ad not found' });
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        const updatePayload: any = {};
+        if (req.body.name !== undefined) updatePayload.name = req.body.name;
+        if (req.body.position !== undefined) updatePayload.position = req.body.position;
+        if (req.body.code !== undefined) updatePayload.code = req.body.code;
+        if (req.body.is_active !== undefined) updatePayload.is_active = Boolean(req.body.is_active);
+        if (req.body.width !== undefined) updatePayload.width = req.body.width ? String(req.body.width) : null;
+        if (req.body.height !== undefined) updatePayload.height = req.body.height ? String(req.body.height) : null;
+
+        await client.from('ads').update(updatePayload).eq('id', req.params.id);
+      }
+    } catch (e: any) {
+      console.warn('Error updating ad in Supabase:', e.message);
+    }
+  }
+  if (!updated) {
+    return res.json({ id: req.params.id, ...req.body });
+  }
   res.json(updated);
 });
 
-app.delete('/api/ads/:id', requireAuth, (req: Request, res: Response) => {
+app.delete('/api/ads/:id', requireAuth, async (req: Request, res: Response) => {
   const ok = db.deleteAd(req.params.id);
-  if (!ok) return res.status(404).json({ error: 'Ad not found' });
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        await client.from('ads').delete().eq('id', req.params.id);
+      }
+    } catch (e: any) {
+      console.warn('Error deleting ad in Supabase:', e.message);
+    }
+  }
   res.json({ message: 'Ad deleted' });
 });
 
@@ -781,12 +912,42 @@ app.delete('/api/ads/:id', requireAuth, (req: Request, res: Response) => {
 // WEBSITE SETTINGS ROUTES
 // ----------------------------------------------------
 
-app.get('/api/settings', (_req: Request, res: Response) => {
+app.get('/api/settings', async (_req: Request, res: Response) => {
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        const { data, error } = await client.from('settings').select('*').limit(1).maybeSingle();
+        if (!error && data && data.website_name) {
+          return res.json({
+            ...db.getSettings(),
+            ...data
+          });
+        }
+      }
+    } catch (e: any) {
+      console.warn('Error reading settings from Supabase:', e.message);
+    }
+  }
   res.json(db.getSettings());
 });
 
-app.put('/api/settings', requireAuth, (req: Request, res: Response) => {
+app.put('/api/settings', requireAuth, async (req: Request, res: Response) => {
   const updated = db.updateSettings(req.body);
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        await client.from('settings').upsert({
+          id: 'current_settings',
+          ...updated,
+          updated_at: new Date().toISOString()
+        });
+      }
+    } catch (e: any) {
+      console.warn('Error updating settings in Supabase:', e.message);
+    }
+  }
   res.json(updated);
 });
 
@@ -794,13 +955,47 @@ app.put('/api/settings', requireAuth, (req: Request, res: Response) => {
 // MEDIA LIBRARY ROUTES
 // ----------------------------------------------------
 
-app.get('/api/media', (_req: Request, res: Response) => {
+app.get('/api/media', async (_req: Request, res: Response) => {
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        const { data, error } = await client.from('media').select('*').order('created_at', { ascending: false });
+        if (!error && Array.isArray(data) && data.length > 0) {
+          return res.json(data);
+        }
+      }
+    } catch (e: any) {
+      console.warn('Error reading media from Supabase:', e.message);
+    }
+  }
   res.json(db.getMedia());
 });
 
 app.post('/api/media/upload', requireAuth, async (req: Request, res: Response) => {
   const { title, dataUrl, type, externalUrl } = req.body;
   const adminUser = (req as any).user?.username || 'admin';
+
+  const persistToSupabaseMedia = async (item: any) => {
+    if (cloudServices.isSupabaseActive()) {
+      try {
+        const client = cloudServices.getSupabaseClient();
+        if (client) {
+          await client.from('media').upsert({
+            id: item.id,
+            title: item.title,
+            type: item.type,
+            url: item.url,
+            thumbnail_url: item.thumbnail_url,
+            size: item.size,
+            created_at: item.created_at
+          });
+        }
+      } catch (err: any) {
+        console.warn('Could not save media to Supabase:', err.message);
+      }
+    }
+  };
 
   if (externalUrl) {
     const item = db.addMedia({
@@ -809,6 +1004,7 @@ app.post('/api/media/upload', requireAuth, async (req: Request, res: Response) =
       url: externalUrl,
       thumbnail_url: externalUrl
     });
+    await persistToSupabaseMedia(item);
     return res.status(201).json(item);
   }
 
@@ -840,6 +1036,7 @@ app.post('/api/media/upload', requireAuth, async (req: Request, res: Response) =
         performed_by: adminUser
       });
 
+      await persistToSupabaseMedia(mediaItem);
       return res.status(201).json(mediaItem);
     } catch (cldErr: any) {
       console.error('[Cloudinary Upload Error]:', cldErr.message);
@@ -886,12 +1083,22 @@ app.post('/api/media/upload', requireAuth, async (req: Request, res: Response) =
     size: `${(buffer.length / 1024).toFixed(1)} KB`
   });
 
+  await persistToSupabaseMedia(mediaItem);
   res.status(201).json(mediaItem);
 });
 
-app.delete('/api/media/:id', requireAuth, (req: Request, res: Response) => {
+app.delete('/api/media/:id', requireAuth, async (req: Request, res: Response) => {
   const ok = db.deleteMedia(req.params.id);
-  if (!ok) return res.status(404).json({ error: 'Media not found' });
+  if (cloudServices.isSupabaseActive()) {
+    try {
+      const client = cloudServices.getSupabaseClient();
+      if (client) {
+        await client.from('media').delete().eq('id', req.params.id);
+      }
+    } catch (e: any) {
+      console.warn('Error deleting media from Supabase:', e.message);
+    }
+  }
   res.json({ message: 'Media removed' });
 });
 
@@ -961,6 +1168,24 @@ app.put('/api/cloud-services/supabase', requireAuth, async (req: Request, res: R
 
     // Dynamically apply without server restart
     cloudServices.applySupabaseConfig(newCreds);
+
+    if (cloudServices.isSupabaseActive()) {
+      try {
+        const client = cloudServices.getSupabaseClient();
+        if (client) {
+          await client.from('system_settings').upsert({
+            service_name: 'supabase',
+            encrypted_credentials: encrypted,
+            is_enabled: newCreds.is_enabled,
+            status: 'connected',
+            updated_by: adminUser,
+            updated_at: new Date().toISOString()
+          });
+        }
+      } catch (e: any) {
+        console.warn('Could not save supabase system_setting to Supabase:', e.message);
+      }
+    }
 
     db.addAuditLog({
       service_name: 'supabase',
@@ -1071,6 +1296,24 @@ app.put('/api/cloud-services/cloudinary', requireAuth, async (req: Request, res:
     });
 
     cloudServices.applyCloudinaryConfig(newCreds);
+
+    if (cloudServices.isSupabaseActive()) {
+      try {
+        const client = cloudServices.getSupabaseClient();
+        if (client) {
+          await client.from('system_settings').upsert({
+            service_name: 'cloudinary',
+            encrypted_credentials: encrypted,
+            is_enabled: newCreds.is_enabled,
+            status: 'connected',
+            updated_by: adminUser,
+            updated_at: new Date().toISOString()
+          });
+        }
+      } catch (e: any) {
+        console.warn('Could not save cloudinary system_setting to Supabase:', e.message);
+      }
+    }
 
     db.addAuditLog({
       service_name: 'cloudinary',

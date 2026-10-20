@@ -56,10 +56,10 @@ class RuntimeCloudServices {
       }
       if (!sbApplied) {
         const defaultSb: SupabaseCredentials = {
-          project_url: process.env.SUPABASE_URL || 'https://oyjivjgyrtnyqwacjvgx.supabase.co',
-          project_id: process.env.SUPABASE_PROJECT_ID || 'oyjivjgyrtnyqwacjvgx',
-          anon_key: process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95aml2amd5cnRueXF3YWNqdmd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNTkwNzksImV4cCI6MjEwNjgzNTA3OX0.h884sz7_OW8pa6Xg3AmIU1ZXlBhaM9aHUHYJc1B4aFs',
-          service_role_key: process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95aml2amd5cnRueXF3YWNqdmd4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MTI1OTA3OSwiZXhwIjoyMTA2ODM1MDc5fQ.caw6VAGHy0LFr3yb-8i4UzkGpODnCCGYnnFk1uCCMUw',
+          project_url: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://oyjivjgyrtnyqwacjvgx.supabase.co',
+          project_id: process.env.SUPABASE_PROJECT_ID || this.extractProjectId(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL) || 'oyjivjgyrtnyqwacjvgx',
+          anon_key: process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95aml2amd5cnRueXF3YWNqdmd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNTkwNzksImV4cCI6MjEwNjgzNTA3OX0.h884sz7_OW8pa6Xg3AmIU1ZXlBhaM9aHUHYJc1B4aFs',
+          service_role_key: process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95aml2amd5cnRueXF3YWNqdmd4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MTI1OTA3OSwiZXhwIjoyMTA2ODM1MDc5fQ.caw6VAGHy0LFr3yb-8i4UzkGpODnCCGYnnFk1uCCMUw',
           schema: 'public',
           is_enabled: true
         };
@@ -78,7 +78,7 @@ class RuntimeCloudServices {
       }
       if (!cldApplied) {
         const defaultCld: CloudinaryCredentials = {
-          cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'cek17wle',
+          cloud_name: process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'cek17wle',
           api_key: process.env.CLOUDINARY_API_KEY || '219759888474739',
           api_secret: process.env.CLOUDINARY_API_SECRET || 'cPLW7OSGkRIndcZO5Pq0pH7l4Gw',
           upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET || '',
@@ -88,10 +88,35 @@ class RuntimeCloudServices {
         this.applyCloudinaryConfig(defaultCld);
       }
 
+      // 3. Attempt async load of system_settings from Supabase if connected
+      this.syncFromSupabaseSettings().catch(() => {});
+
       this.isInitialized = true;
       console.log('✅ Runtime Cloud Services initialized dynamically with active Supabase & Cloudinary.');
     } catch (err: any) {
       console.error('Error initializing runtime cloud services:', err.message);
+    }
+  }
+
+  /**
+   * Syncs encrypted settings (like Cloudinary credentials) stored centrally in Supabase
+   */
+  public async syncFromSupabaseSettings(): Promise<void> {
+    if (!this.supabaseClient) return;
+    try {
+      const { data, error } = await this.supabaseClient.from('system_settings').select('*');
+      if (!error && Array.isArray(data)) {
+        const cldSetting = data.find((s: any) => s.service_name === 'cloudinary');
+        if (cldSetting && cldSetting.encrypted_credentials) {
+          const decrypted = decryptCredentials<CloudinaryCredentials>(cldSetting.encrypted_credentials);
+          if (decrypted && decrypted.cloud_name) {
+            this.applyCloudinaryConfig(decrypted);
+            console.log(`✅ Dynamically synced Cloudinary (${decrypted.cloud_name}) from Supabase system_settings`);
+          }
+        }
+      }
+    } catch (err: any) {
+      // Ignored if table not created yet
     }
   }
 

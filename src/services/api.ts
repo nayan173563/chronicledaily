@@ -381,15 +381,20 @@ export const api = {
 
   updateAd: async (id: string, ad: Partial<Ad>) => {
     try {
-      return await fetchJson<Ad>(`/api/ads/${id}`, {
+      const res = await fetchJson<Ad>(`/api/ads/${id}`, {
         method: 'PUT',
         body: JSON.stringify(ad),
       });
-    } catch {}
-    const ads = getLocalData<Ad[]>('ads', seedData.ads as Ad[]);
-    const updated = ads.map((a) => (a.id === id ? { ...a, ...ad } : a));
-    setLocalData('ads', updated);
-    return updated.find((a) => a.id === id) || (ad as Ad);
+      const ads = getLocalData<Ad[]>('ads', seedData.ads as Ad[]);
+      const updated = ads.map((a) => (a.id === id ? { ...a, ...res } : a));
+      setLocalData('ads', updated);
+      return res;
+    } catch {
+      const ads = getLocalData<Ad[]>('ads', seedData.ads as Ad[]);
+      const updated = ads.map((a) => (a.id === id ? { ...a, ...ad } : a));
+      setLocalData('ads', updated);
+      return updated.find((a) => a.id === id) || (ad as Ad);
+    }
   },
 
   deleteAd: async (id: string) => {

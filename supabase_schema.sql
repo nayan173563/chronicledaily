@@ -126,14 +126,28 @@ CREATE TABLE IF NOT EXISTS public.analytics (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 10. ROW LEVEL SECURITY (RLS) POLICIES
+-- 10. SYSTEM SETTINGS TABLE (Encrypted runtime cloud credentials)
+CREATE TABLE IF NOT EXISTS public.system_settings (
+    service_name VARCHAR(100) PRIMARY KEY,
+    encrypted_credentials TEXT,
+    is_enabled BOOLEAN DEFAULT true,
+    status VARCHAR(50) DEFAULT 'unconfigured',
+    status_message TEXT,
+    last_tested_at TIMESTAMP WITH TIME ZONE,
+    updated_by VARCHAR(120),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 11. ROW LEVEL SECURITY (RLS) POLICIES
 ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ads ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.settings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.media ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.system_settings ENABLE ROW LEVEL SECURITY;
 
--- Allow public read access to published posts, categories, ads, settings, and comments (Idempotent safe)
+-- Allow public read access to published posts, categories, ads, settings, media, and comments (Idempotent safe)
 DROP POLICY IF EXISTS "Public Read Posts" ON public.posts;
 CREATE POLICY "Public Read Posts" ON public.posts FOR SELECT USING (true);
 
@@ -145,6 +159,9 @@ CREATE POLICY "Public Read Ads" ON public.ads FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Public Read Settings" ON public.settings;
 CREATE POLICY "Public Read Settings" ON public.settings FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Read Media" ON public.media;
+CREATE POLICY "Public Read Media" ON public.media FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Public Read Comments" ON public.comments;
 CREATE POLICY "Public Read Comments" ON public.comments FOR SELECT USING (status = 'approved');
@@ -164,3 +181,9 @@ CREATE POLICY "Admin Full Access Settings" ON public.settings FOR ALL USING (tru
 
 DROP POLICY IF EXISTS "Admin Full Access Ads" ON public.ads;
 CREATE POLICY "Admin Full Access Ads" ON public.ads FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin Full Access Media" ON public.media;
+CREATE POLICY "Admin Full Access Media" ON public.media FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin Full Access System Settings" ON public.system_settings;
+CREATE POLICY "Admin Full Access System Settings" ON public.system_settings FOR ALL USING (true) WITH CHECK (true);

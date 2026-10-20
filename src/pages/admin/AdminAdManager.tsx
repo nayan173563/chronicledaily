@@ -6,7 +6,7 @@ import { Megaphone, Edit3, Plus, Trash2, CheckCircle2, AlertCircle, ToggleLeft, 
 import { SkipAdModal } from '../../components/ads/SkipAdModal';
 
 export const AdminAdManager: React.FC = () => {
-  const { ads, refreshAds, settings, refreshSettings, toast, confirm } = useWebsite();
+  const { ads, refreshAds, updateAdLocally, settings, refreshSettings, toast, confirm } = useWebsite();
   const [editingAd, setEditingAd] = useState<Ad | null>(null);
 
   // Form fields
@@ -59,11 +59,18 @@ export const AdminAdManager: React.FC = () => {
   };
 
   const handleToggleAd = async (ad: Ad) => {
+    const nextState = !ad.is_active;
+    // 1. Instantly flip the badge in the UI
+    updateAdLocally(ad.id, { is_active: nextState });
+
     try {
-      await api.updateAd(ad.id, { is_active: !ad.is_active });
+      await api.updateAd(ad.id, { is_active: nextState });
       await refreshAds();
-      toast.success(`Slot [${ad.position}] is now ${!ad.is_active ? 'active' : 'paused'}`);
+      toast.success(`Slot [${ad.position}] is now ${nextState ? 'active' : 'paused'}`);
     } catch (err: any) {
+      // Revert if error occurs
+      updateAdLocally(ad.id, { is_active: ad.is_active });
+      await refreshAds();
       toast.error(`Toggle failed: ${err.message}`);
     }
   };

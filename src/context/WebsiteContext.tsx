@@ -28,6 +28,7 @@ interface WebsiteContextType {
   refreshSettings: () => Promise<void>;
   refreshCategories: () => Promise<void>;
   refreshAds: () => Promise<void>;
+  updateAdLocally: (id: string, partial: Partial<Ad>) => void;
   loginAdmin: (token: string, user: AdminUser) => void;
   logoutAdmin: () => void;
   updateAdminUser: (user: AdminUser) => void;
@@ -120,6 +121,10 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
     } catch (err) {
       console.error('Failed to load ads:', err);
     }
+  };
+
+  const updateAdLocally = (id: string, partial: Partial<Ad>) => {
+    setAds((prev) => prev.map((a) => (a.id === id ? { ...a, ...partial } : a)));
   };
 
   const checkAuth = async () => {
@@ -215,6 +220,7 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
         refreshSettings,
         refreshCategories,
         refreshAds,
+        updateAdLocally,
         loginAdmin,
         logoutAdmin,
         updateAdminUser,

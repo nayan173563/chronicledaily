@@ -758,7 +758,7 @@ class Database {
     if (cloudServices.isSupabaseActive()) {
       const client = cloudServices.getSupabaseClient();
       if (client) {
-        client.from('posts').insert({
+        Promise.resolve(client.from('posts').insert({
           id: newPost.id,
           short_id: newPost.short_id,
           title: newPost.title,
@@ -776,7 +776,7 @@ class Database {
           read_time: newPost.read_time || '4 min read',
           created_at: newPost.created_at,
           updated_at: newPost.updated_at
-        }).then(({ error }: any) => {
+        })).then(({ error }: any) => {
           if (error) console.warn('[Supabase Sync] Insert post error:', error.message);
           else console.log('[Supabase Sync] Post successfully persisted to Supabase:', newPost.id);
         }).catch((err: any) => console.warn('[Supabase Sync] Network error:', err.message));
@@ -804,10 +804,10 @@ class Database {
     if (cloudServices.isSupabaseActive()) {
       const client = cloudServices.getSupabaseClient();
       if (client) {
-        client.from('posts').update({
+        Promise.resolve(client.from('posts').update({
           ...updates,
           updated_at: this.data.posts[idx].updated_at
-        }).eq('id', id).then(({ error }: any) => {
+        }).eq('id', id)).then(({ error }: any) => {
           if (error) console.warn('[Supabase Sync] Update post error:', error.message);
         }).catch((err: any) => console.warn('[Supabase Sync] Update error:', err.message));
       }
@@ -826,7 +826,7 @@ class Database {
     if (cloudServices.isSupabaseActive()) {
       const client = cloudServices.getSupabaseClient();
       if (client) {
-        client.from('posts').delete().eq('id', id).then(({ error }: any) => {
+        Promise.resolve(client.from('posts').delete().eq('id', id)).then(({ error }: any) => {
           if (error) console.warn('[Supabase Sync] Delete post error:', error.message);
         }).catch((err: any) => console.warn('[Supabase Sync] Delete error:', err.message));
       }
